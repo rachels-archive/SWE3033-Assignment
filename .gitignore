@@ -1,4 +1,4 @@
 TMS_API/.venv
 .idea
 .DS_Store
-TMS_API/src/__pycache__
+TMS_API/src/__pycache__/
