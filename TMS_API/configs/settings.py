@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
+# WSGI_APPLICATION = 'src.wsgi.application'
 
 
 # Database
@@ -77,9 +78,11 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': './properties/db.cnf',
-        },
+        'NAME': 'freedb_SWE3033',
+        'USER': 'freedb_ryanchann',
+        'PASSWORD': 'c?kGBq&vy98Be*9',
+        'HOST': 'sql.freedb.tech',
+        'PORT':3306,
     }
 }
 
