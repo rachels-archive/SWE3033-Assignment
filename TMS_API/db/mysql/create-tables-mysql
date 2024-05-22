@@ -1,7 +1,8 @@
 create table Task
 (
     id               int auto_increment primary key,
-    task_id          varchar(8)   null,
+    task_id          varchar(8)   not null,
+    task_name        varchar(128) not null,
     task_description varchar(255) null,
     task_deadline    varchar(32)  null,
     task_priority    int          not null,
