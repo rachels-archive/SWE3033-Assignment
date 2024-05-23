@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Task(models.Model):
-    id = models.IntegerField(primary_key=True, editable=False, unique=True)
+    id = models.AutoField(primary_key=True, editable=False, unique=True)
     task_id = models.CharField(max_length=8, null=False, unique=True)
     task_name = models.CharField(max_length=128, null=False)
     task_description = models.TextField(max_length=255, null=True)
@@ -13,3 +13,6 @@ class Task(models.Model):
 
     class Meta:
         db_table = 'Task'
+
+    def __str__(self):
+        return self.task_id

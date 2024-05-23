@@ -15,8 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from src.view import TaskView
+from tms_apis import views
 
 urlpatterns = [
-    path('taskview/api/get/', TaskView.getMessage),
+    path('getTask/', views.TaskView.as_view()),
 ]

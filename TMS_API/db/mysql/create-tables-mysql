@@ -10,3 +10,15 @@ create table Task
     is_active        int          null
 );
 
+INSERT INTO Task (task_id, task_name, task_description, task_deadline, task_priority, task_status, is_active)
+VALUES
+('T001', 'Design Homepage', 'Create a responsive homepage design', '2024-06-01', 1, 0, 1),
+('T002', 'Write API Documentation', 'Document all endpoints of the API', '2024-06-05', 2, 0, 1),
+('T003', 'Database Backup', 'Perform a full backup of the database', '2024-05-25', 3, 1, 1),
+('T004', 'Update User Guide', 'Update the user guide to include new features', '2024-06-10', 2, 0, 1),
+('T005', 'Security Audit', 'Conduct a thorough security audit of the system', '2024-06-15', 1, 0, 1),
+('T006', 'Fix Bug #342', 'Fix the login issue reported by multiple users', '2024-05-30', 1, 0, 1),
+('T007', 'Optimize Database', 'Improve the performance of database queries', '2024-06-20', 2, 0, 1),
+('T008', 'Plan Sprint Meeting', 'Schedule and prepare for the next sprint planning meeting', '2024-05-28', 3, 1, 1),
+('T009', 'Client Presentation', 'Prepare presentation materials for the client meeting', '2024-06-03', 2, 0, 1),
+('T010', 'Server Maintenance', 'Perform scheduled maintenance on the server', '2024-05-29', 1, 0, 1);
