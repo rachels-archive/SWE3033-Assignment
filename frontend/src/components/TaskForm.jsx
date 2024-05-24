@@ -4,7 +4,7 @@ const TaskForm = () => {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [priority, setPriority] = useState("");
   const [status, setStatus] = useState("");
 
@@ -15,9 +15,14 @@ const TaskForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!name || !deadline || !priority || !status) {
+      alert("Please fill out all required fields");
+      return;
+    }
+
     console.log("Name:", name);
     console.log("Description:", description);
-    console.log("Date:", date);
+    console.log("Deadline:", deadline);
     console.log("Priority:", priority);
     console.log("Status:", status);
     handleForm();
@@ -40,7 +45,10 @@ const TaskForm = () => {
               <div className="modal-body">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <label className="form-label">Name:</label>
+                    <label className="form-label  d-flex align-items-center fw-bold">
+                      Name
+                      <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -50,7 +58,7 @@ const TaskForm = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Description:</label>
+                    <label className="form-label d-flex align-items-center fw-bold">Description</label>
                     <input
                       type="text"
                       className="form-control"
@@ -60,16 +68,22 @@ const TaskForm = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Date:</label>
+                    <label className="form-label  d-flex align-items-center fw-bold">
+                      Deadline
+                      <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
+                    </label>
                     <input
                       type="date"
                       className="form-control"
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
+                      value={deadline}
+                      onChange={(e) => setDeadline(e.target.value)}
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Priority:</label>
+                    <label className="form-label  d-flex align-items-center fw-bold">
+                      Priority
+                      <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
+                    </label>
                     <select className="form-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
                       <option value="">Select Priority</option>
                       <option value="low">Low</option>
@@ -78,7 +92,10 @@ const TaskForm = () => {
                     </select>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Status:</label>
+                    <label className="form-label  d-flex align-items-center fw-bold">
+                      Status
+                      <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
+                    </label>
                     <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Select Status</option>
                       <option value="not started">Not Started</option>
