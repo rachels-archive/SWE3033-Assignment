@@ -1,17 +1,38 @@
-import { useState } from 'react'
-
-import './App.css'
+import { useState, useEffect } from "react";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import "./App.css";
+import axios from "axios";
 
 function App() {
+  const [tasks, setTasks] = useState([]);
 
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/getTask/");
+      setTasks(response.data);
+      setisLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div className='container-fluid full-screen'>
+    <div className="container-fluid full-screen">
       <nav>
         <h1>Task Manager</h1>
-     </nav>
+      </nav>
+
+      <TaskForm />
+      <TaskList tasks={tasks} isLoading={isLoading} setTasks={setTasks} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

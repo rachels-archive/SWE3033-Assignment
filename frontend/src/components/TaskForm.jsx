@@ -5,8 +5,8 @@ const TaskForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [priority, setPriority] = useState("");
-  const [status, setStatus] = useState("");
+  const [priority, setPriority] = useState(3); // intial priority: low
+  const [status, setStatus] = useState(1); // intial status: not yet started
 
   const handleForm = () => {
     setShowForm(!showForm);
@@ -25,6 +25,7 @@ const TaskForm = () => {
     console.log("Deadline:", deadline);
     console.log("Priority:", priority);
     console.log("Status:", status);
+
     handleForm();
   };
 
@@ -84,11 +85,14 @@ const TaskForm = () => {
                       Priority
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
-                    <select className="form-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
-                      <option value="">Select Priority</option>
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
+                    <select
+                      className="form-select"
+                      value={priority}
+                      onChange={(e) => setPriority(parseInt(e.target.value))}
+                    >
+                      <option value="3">Low</option>
+                      <option value="2">Medium</option>
+                      <option value="1">High</option>
                     </select>
                   </div>
                   <div className="mb-3">
@@ -96,11 +100,14 @@ const TaskForm = () => {
                       Status
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
-                    <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
-                      <option value="">Select Status</option>
-                      <option value="not started">Not Started</option>
-                      <option value="in progress">In Progress</option>
-                      <option value="completed">Completed</option>
+                    <select
+                      className="form-select"
+                      value={status}
+                      onChange={(e) => setStatus(parseInt(e.target.value))}
+                    >
+                      <option value="1">Not Yet Started</option>
+                      <option value="2">In Progress</option>
+                      <option value="3">Completed</option>
                     </select>
                   </div>
                 </form>
