@@ -23,6 +23,14 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <div className="container">
       {isLoading ? (
@@ -47,9 +55,10 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
                   <td>{taskItem.task_description ? taskItem.task_description : "-"}</td>
                   <td>{getStatusText(taskItem.task_status)}</td>
                   <td>{getPriorityText(taskItem.task_priority)}</td>
-                  <td>{taskItem.task_deadline}</td>
-                  <td>
-                    <i className="fa-solid fa-edit mx-3"></i>
+                  <td>{formatDate(taskItem.task_deadline)}</td>
+
+                  <td className="d-flex justify-content-center">
+                    <i className="fa-solid fa-edit me-4"></i>
                     <i className="fa-solid fa-trash"></i>
                   </td>
                 </tr>
