@@ -137,7 +137,7 @@ const TaskForm = ({ updateTaskList }) => {
                   Close
                 </button>
                 <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                  Save Changes
+                  Create Task
                 </button>
               </div>
             </div>

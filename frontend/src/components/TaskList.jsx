@@ -214,7 +214,7 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
                     )}
                   </td>
 
-                  <td className="d-flex justify-content-center">
+                  <td>
                     {editingTask === taskItem ? (
                       <>
                         <button onClick={handleSaveEdit}>Save</button>
