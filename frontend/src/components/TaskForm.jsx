@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const TaskForm = () => {
+const TaskForm = ({ updateTaskList }) => {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -12,7 +13,7 @@ const TaskForm = () => {
     setShowForm(!showForm);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name || !deadline || !priority || !status) {
@@ -20,13 +21,32 @@ const TaskForm = () => {
       return;
     }
 
-    console.log("Name:", name);
-    console.log("Description:", description);
-    console.log("Deadline:", deadline);
-    console.log("Priority:", priority);
-    console.log("Status:", status);
+    const newTask = {
+      task_name: name,
+      task_description: description,
+      task_deadline: deadline,
+      task_priority: priority,
+      task_status: status,
+      is_active: 1,
+    };
 
-    handleForm();
+    try {
+      await axios.post("http://127.0.0.1:8000/createTask/", newTask);
+
+      // Reset the form fields
+      setName("");
+      setDescription("");
+      setDeadline("");
+      setPriority(3);
+      setStatus(1);
+
+      // Close the form
+      handleForm();
+
+      updateTaskList(); // Add this line
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

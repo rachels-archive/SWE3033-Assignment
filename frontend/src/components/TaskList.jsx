@@ -161,7 +161,7 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
           <tbody>
             {Array.isArray(tasks) && tasks.length > 0 ? (
               tasks.map((taskItem, index) => (
-                <tr key={taskItem.id}>
+                <tr key={taskItem.task_id}>
                   <td>
                     {editingTask === taskItem ? (
                       <input value={editedName} onChange={(e) => handleChange("name", e.target.value)} />

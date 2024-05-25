@@ -7,7 +7,7 @@ import axios from "axios";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -17,7 +17,17 @@ function App() {
     try {
       const response = await axios.get("http://127.0.0.1:8000/getTask/");
       setTasks(response.data);
-      setisLoading(false);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateTaskList = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/getTask/");
+      setTasks(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +39,7 @@ function App() {
         <h1>Task Manager</h1>
       </nav>
 
-      <TaskForm />
+      <TaskForm updateTaskList={updateTaskList} />
       <TaskList tasks={tasks} isLoading={isLoading} setTasks={setTasks} />
     </div>
   );
