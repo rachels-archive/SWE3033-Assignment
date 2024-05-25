@@ -19,4 +19,7 @@ from tms_apis import views
 
 urlpatterns = [
     path('getTask/', views.TaskView.as_view()),
+    path('createTask/', views.CreateTaskView.as_view()),
+    path('updateTask/<int:pk>/', views.UpdateTaskView.as_view()),
+    path('deleteTask/<int:pk>/', views.DeleteTaskView.as_view()),  
 ]
