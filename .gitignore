@@ -2,3 +2,11 @@ TMS_API/.venv
 TMS_API/src/__pycache__/*
 .idea
 .DS_Store
+
+newenv/
+**/__pycache__/
+
+# Django migrations
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
