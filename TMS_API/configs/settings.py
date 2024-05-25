@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+APPEND_SLASH = False
+
 
 # Application definition
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'tms_apis',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,9 +52,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'configs.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -69,8 +75,6 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'src.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -79,10 +83,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'freedb_SWE3033',
-        'USER': 'freedb_ryanchann',
-        'PASSWORD': 'c?kGBq&vy98Be*9',
-        'HOST': 'sql.freedb.tech',
-        'PORT':3306,
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT':'3306',
     }
 }
 
