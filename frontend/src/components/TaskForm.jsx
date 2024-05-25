@@ -6,8 +6,8 @@ const TaskForm = ({ updateTaskList }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [priority, setPriority] = useState(3); // intial priority: low
-  const [status, setStatus] = useState(1); // intial status: not yet started
+  const [priority, setPriority] = useState(3);
+  const [status, setStatus] = useState(1);
 
   const handleForm = () => {
     setShowForm(!showForm);
@@ -33,17 +33,16 @@ const TaskForm = ({ updateTaskList }) => {
     try {
       await axios.post("http://127.0.0.1:8000/createTask/", newTask);
 
-      // Reset the form fields
+      // reset form
       setName("");
       setDescription("");
       setDeadline("");
       setPriority(3);
       setStatus(1);
 
-      // Close the form
+      // close form and update task list
       handleForm();
-
-      updateTaskList(); // Add this line
+      updateTaskList();
     } catch (error) {
       console.log(error);
     }

@@ -87,10 +87,8 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
         task_status: editedStatus,
       };
 
-      // Make the PUT request to update the task
       await axios.put(`http://127.0.0.1:8000/updateTask/${editingTask.id}/`, updatedTask);
 
-      // Update the tasks state with the updated task
       setTasks((prevTasks) => {
         return prevTasks.map((task) => {
           if (task.id === editingTask.id) {
@@ -112,14 +110,11 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
 
   const handleDelete = async (taskId) => {
     try {
-      // Show a confirmation dialog
       const confirmDelete = window.confirm("Are you sure you want to delete this task?");
 
       if (confirmDelete) {
-        // Make the DELETE request to remove the task
         await axios.delete(`http://127.0.0.1:8000/deleteTask/${taskId}/`);
 
-        // Update the tasks state by filtering out the deleted task
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
       }
     } catch (error) {
@@ -208,7 +203,11 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
                   </td>
                   <td>
                     {editingTask === taskItem ? (
-                      <input value={editedDeadline} onChange={(e) => handleChange("deadline", e.target.value)} />
+                      <input
+                        type="date"
+                        value={editedDeadline}
+                        onChange={(e) => handleChange("deadline", e.target.value)}
+                      />
                     ) : (
                       formatDate(taskItem.task_deadline)
                     )}

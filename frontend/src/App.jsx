@@ -6,7 +6,6 @@ import axios from "axios";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
