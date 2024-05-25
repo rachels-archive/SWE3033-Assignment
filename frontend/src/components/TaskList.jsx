@@ -110,6 +110,23 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
     setEditingTask(null);
   };
 
+  const handleDelete = async (taskId) => {
+    try {
+      // Show a confirmation dialog
+      const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+
+      if (confirmDelete) {
+        // Make the DELETE request to remove the task
+        await axios.delete(`http://127.0.0.1:8000/deleteTask/${taskId}/`);
+
+        // Update the tasks state by filtering out the deleted task
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const fetchUpdatedTasks = async () => {
       try {
@@ -206,7 +223,7 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
                     ) : (
                       <>
                         <button onClick={() => handleEdit(taskItem)}>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={() => handleDelete(taskItem.id)}>Delete</button>
                       </>
                     )}
                   </td>
