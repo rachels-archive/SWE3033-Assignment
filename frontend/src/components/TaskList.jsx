@@ -8,6 +8,7 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
   const [editedDeadline, setEditedDeadline] = useState("");
   const [editedPriority, setEditedPriority] = useState("");
   const [editedStatus, setEditedStatus] = useState("");
+  const [selectedPriority, setSelectedPriority] = useState("");
 
   const getStatusText = (status) => {
     switch (status) {
@@ -122,6 +123,10 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
     }
   };
 
+  const handlePriorityFilter = (e) => {
+    setSelectedPriority(e.target.value);
+  };
+
   useEffect(() => {
     const fetchUpdatedTasks = async () => {
       try {
@@ -138,105 +143,141 @@ const TaskList = ({ tasks, setTasks, isLoading }) => {
   }, [editingTask, setTasks]);
 
   return (
-    <div className="container">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <table className="table">
-          <thead className="border-bottom">
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Priority</th>
-              <th>Deadline</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.isArray(tasks) && tasks.length > 0 ? (
-              tasks.map((taskItem, index) => (
-                <tr key={taskItem.task_id}>
-                  <td>
-                    {editingTask === taskItem ? (
-                      <input value={editedName} onChange={(e) => handleChange("name", e.target.value)} />
-                    ) : (
-                      taskItem.task_name
-                    )}
-                  </td>
-                  <td>
-                    {editingTask === taskItem ? (
-                      <input value={editedDescription} onChange={(e) => handleChange("description", e.target.value)} />
-                    ) : taskItem.task_description ? (
-                      taskItem.task_description
-                    ) : (
-                      "-"
-                    )}
-                  </td>
-                  <td>
-                    {editingTask === taskItem ? (
-                      <select
-                        value={getStatusText(editedStatus)}
-                        onChange={(e) => handleChange("status", e.target.value)}
-                      >
-                        <option value="Not Yet Started">Not Yet Started</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                      </select>
-                    ) : (
-                      getStatusText(taskItem.task_status)
-                    )}
-                  </td>
-                  <td>
-                    {editingTask === taskItem ? (
-                      <select
-                        value={getPriorityText(editedPriority)}
-                        onChange={(e) => handleChange("priority", e.target.value)}
-                      >
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                      </select>
-                    ) : (
-                      getPriorityText(taskItem.task_priority)
-                    )}
-                  </td>
-                  <td>
-                    {editingTask === taskItem ? (
-                      <input
-                        type="date"
-                        value={editedDeadline}
-                        onChange={(e) => handleChange("deadline", e.target.value)}
-                      />
-                    ) : (
-                      formatDate(taskItem.task_deadline)
-                    )}
-                  </td>
+    <>
+      <div className="d-flex flex-start">
+        <select name="priority-filter" id="priority-filter" value={selectedPriority} onChange={handlePriorityFilter}>
+          <option value="">Choose a Priority</option>
+          <option value="3">Low</option>
+          <option value="2">Medium</option>
+          <option value="1">High</option>
+        </select>
+      </div>
 
-                  <td>
-                    {editingTask === taskItem ? (
-                      <>
-                        <button onClick={handleSaveEdit}>Save</button>
-                        <button onClick={handleCancelEdit}>Cancel</button>
-                      </>
-                    ) : (
-                      <>
-                        <button onClick={() => handleEdit(taskItem)}>Edit</button>
-                        <button onClick={() => handleDelete(taskItem.id)}>Delete</button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
+      <div className="mt-3  py-2">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <table className="table table-light table-borderless" style={{ borderRadius: "1rem", overflow: "hidden" }}>
+            <thead>
               <tr>
-                <td colSpan="6">No tasks found.</td>
+                <th className="table-title">
+                  <p>Name</p>
+                </th>
+                <th className="table-title">
+                  <p>Description</p>
+                </th>
+                <th className="table-title">
+                  <p>Status</p>
+                </th>
+                <th className="table-title">
+                  <p>Priority</p>
+                </th>
+                <th className="table-title">
+                  <p>Deadline</p>
+                </th>
+                <th className="table-title">
+                  <p>Actions</p>
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {Array.isArray(tasks) && tasks.length > 0 ? (
+                tasks
+                  .filter((task) => selectedPriority === "" || task.task_priority === parseInt(selectedPriority))
+                  .map((taskItem, index) => (
+                    <tr key={taskItem.task_id}>
+                      <td colSpan="6">
+                        <div className="table-row bg-white">
+                          <td>
+                            {editingTask === taskItem ? (
+                              <input value={editedName} onChange={(e) => handleChange("name", e.target.value)} />
+                            ) : (
+                              taskItem.task_name
+                            )}
+                          </td>
+                          <td>
+                            {editingTask === taskItem ? (
+                              <input
+                                value={editedDescription}
+                                onChange={(e) => handleChange("description", e.target.value)}
+                              />
+                            ) : taskItem.task_description ? (
+                              taskItem.task_description
+                            ) : (
+                              "-"
+                            )}
+                          </td>
+                          <td>
+                            {editingTask === taskItem ? (
+                              <select
+                                value={getStatusText(editedStatus)}
+                                onChange={(e) => handleChange("status", e.target.value)}
+                              >
+                                <option value="Not Yet Started">Not Yet Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                              </select>
+                            ) : (
+                              getStatusText(taskItem.task_status)
+                            )}
+                          </td>
+                          <td>
+                            {editingTask === taskItem ? (
+                              <select
+                                value={getPriorityText(editedPriority)}
+                                onChange={(e) => handleChange("priority", e.target.value)}
+                              >
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                              </select>
+                            ) : (
+                              getPriorityText(taskItem.task_priority)
+                            )}
+                          </td>
+                          <td>
+                            {editingTask === taskItem ? (
+                              <input
+                                type="date"
+                                value={editedDeadline}
+                                onChange={(e) => handleChange("deadline", e.target.value)}
+                              />
+                            ) : (
+                              formatDate(taskItem.task_deadline)
+                            )}
+                          </td>
+
+                          <td>
+                            {editingTask === taskItem ? (
+                              <>
+                                <button onClick={handleSaveEdit}>Save</button>
+                                <button onClick={handleCancelEdit}>Cancel</button>
+                              </>
+                            ) : (
+                              <>
+                                <button onClick={() => handleDelete(taskItem.id)} style={{ background: "none" }}>
+                                  <i className="fas fa-trash-can" style={{ color: "red" }}></i>
+                                </button>
+                                <button onClick={() => handleEdit(taskItem)} style={{ background: "none" }}>
+                                  <i className="fas fa-edit"></i>
+                                </button>
+                              </>
+                            )}
+                          </td>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan="6">No tasks found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
   );
 };
 

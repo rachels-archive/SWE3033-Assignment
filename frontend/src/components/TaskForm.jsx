@@ -50,22 +50,27 @@ const TaskForm = ({ updateTaskList }) => {
 
   return (
     <div>
-      <button className="btn btn-primary" onClick={handleForm}>
-        Add Task <i className="fa-solid fa-plus"></i>
+      <button className="btn btn-primary float-end" onClick={handleForm} style={{ background: "#000", border: "none" }}>
+        <i className="fa-solid fa-plus"></i>
       </button>
 
       {showForm && (
         <div className="modal" style={{ display: "block" }}>
           <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Create A New Task</h5>
-                <button type="button" className="btn-close" onClick={handleForm}></button>
+            <div className="modal-content px-3" style={{ background: "#fdd674" }}>
+              <div className="modal-header border-0 text-center d-flex justify-content-center">
+                <button
+                  type="button"
+                  className="float-start btn-close  btn-close  bg-danger rounded-circle"
+                  onClick={handleForm}
+                  style={{ position: "absolute", left: "2rem" }}
+                ></button>
+                <h4 className="modal-title fw-bold ">Create A New Task</h4>
               </div>
-              <div className="modal-body">
+              <div className="modal-body ">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                    <label className="form-label  d-flex align-items-center fw-bold">
+                    <label className="form-label  d-flex align-items-center fw-bold justify-content-between">
                       Name
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
@@ -88,7 +93,7 @@ const TaskForm = ({ updateTaskList }) => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label  d-flex align-items-center fw-bold">
+                    <label className="form-label  d-flex align-items-center fw-bold justify-content-between">
                       Deadline
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
@@ -100,7 +105,7 @@ const TaskForm = ({ updateTaskList }) => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label  d-flex align-items-center fw-bold">
+                    <label className="form-label  d-flex align-items-center fw-bold justify-content-between">
                       Priority
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
@@ -115,7 +120,7 @@ const TaskForm = ({ updateTaskList }) => {
                     </select>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label  d-flex align-items-center fw-bold">
+                    <label className="form-label  d-flex align-items-center fw-bold justify-content-between">
                       Status
                       <span className="bg-danger text-white rounded ms-2 px-2 py-1 small rounded-pill">Required</span>
                     </label>
@@ -131,12 +136,9 @@ const TaskForm = ({ updateTaskList }) => {
                   </div>
                 </form>
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={handleForm}>
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                  Create Task
+              <div className="modal-footer border-0 d-flex justify-content-center">
+                <button type="button" className="btn btn-primary " onClick={handleSubmit}>
+                  Create
                 </button>
               </div>
             </div>

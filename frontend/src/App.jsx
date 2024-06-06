@@ -3,10 +3,19 @@ import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import "./App.css";
 import axios from "axios";
+import background from "./assets/bg.jpg";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const currDate = new Date()
+    .toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+    .replace(/ /g, " ");
 
   useEffect(() => {
     fetchData();
@@ -34,8 +43,13 @@ function App() {
 
   return (
     <div className="container-fluid full-screen">
-      <nav>
-        <h1>Task Manager</h1>
+      <nav className="text-start">
+        <h1 className=" text-warning">
+          <strong>Task Manager</strong>
+        </h1>
+        <p>
+          Welcome back, today is <strong>{currDate}</strong>.
+        </p>
       </nav>
 
       <TaskForm updateTaskList={updateTaskList} />
